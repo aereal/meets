@@ -13,7 +13,6 @@ type MeetingComponentProps = {
 };
 
 const MeetingComponent = ({ meetingId, members, onClick }: MeetingComponentProps) => {
-  const newMember = new Person("aereal"); // TODO: ask
   return (
     <div className="card">
       <div className="card-content">
@@ -23,7 +22,7 @@ const MeetingComponent = ({ meetingId, members, onClick }: MeetingComponentProps
         </p>
       </div>
       <div className="card-action">
-        <button className="waves-effect waves-teal btn-flat" onClick={() => onClick(meetingId, newMember)}>
+        <button className="waves-effect waves-teal btn-flat" onClick={() => onClick(meetingId, new Person(window.prompt("member name?")))}>
           Add Person
         </button>
       </div>
