@@ -4,5 +4,24 @@
   "main": "index.js",
   "repository": {},
   "author": "aereal <aereal@aereal.org>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "compile:js": "browserify -o $npm_package_config_out_file -t babelify $npm_package_config_main_file",
+    "compile:js:watch": "watchify -o $npm_package_config_out_file -t babelify $npm_package_config_main_file",
+    "server": "python -m SimpleHTTPServer $npm_package_config_port",
+    "start": "run-p server compile:js:watch"
+  },
+  "config": {
+    "port": 8001,
+    "out_file": "dist/js/main.js",
+    "main_file": "src/main.js"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "npm-run-all": "^4.0.2",
+    "vue": "^2.3.3",
+    "watchify": "^3.9.0"
+  }
 }
