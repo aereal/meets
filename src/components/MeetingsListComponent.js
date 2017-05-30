@@ -14,7 +14,7 @@ type MeetingsListProps = {
 
 const MeetingsListComponent = ({ meetings = [], onAddMember }: MeetingsListProps) => {
   return (
-    <div>{meetings.map(m => <MeetingComponent meetingId={m.id} members={m.members} onClick={onAddMember} />)}</div>
+    <div>{meetings.map(m => <MeetingComponent key={m.id} meetingId={m.id} members={m.members} onClick={onAddMember} />)}</div>
   );
 };
 

@@ -18,7 +18,7 @@ const MeetingComponent = ({ meetingId, members, onClick }: MeetingComponentProps
       <div className="card-content">
         <span className="card-title">Meeting {meetingId}</span>
         <p>
-          {members.map(m => <MemberComponent name={m.name} avatarUrl={m.avatarUrl} />)}
+          {members.map(m => <MemberComponent key={m.name} name={m.name} avatarUrl={m.avatarUrl} />)}
         </p>
       </div>
       <div className="card-action">
