@@ -7,10 +7,13 @@ import Person from '../models/Person';
 import MemberComponent from './MemberComponent';
 
 type MeetingComponentProps = {
+  meetingId: number,
   members: Person[],
+  onClick: (meetingId: number) => void,
 };
 
-const MeetingComponent = ({ members }: MeetingComponentProps) => {
+const MeetingComponent = ({ meetingId, members, onClick }: MeetingComponentProps) => {
+  const newMember = new Person("aereal"); // TODO: ask
   return (
     <div className="card">
       <div className="card-content">
@@ -20,7 +23,7 @@ const MeetingComponent = ({ members }: MeetingComponentProps) => {
         </p>
       </div>
       <div className="card-action">
-        <button className="waves-effect waves-teal btn-flat">
+        <button className="waves-effect waves-teal btn-flat" onClick={() => onClick(meetingId, newMember)}>
           Add Person
         </button>
       </div>

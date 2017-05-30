@@ -9,11 +9,12 @@ import Person from '../models/Person';
 
 type MeetingsListProps = {
   meetings: Meeting[],
+  onAddMember: () => void,
 };
 
-const MeetingsListComponent = ({ meetings = [] }: MeetingsListProps) => {
+const MeetingsListComponent = ({ meetings = [], onAddMember }: MeetingsListProps) => {
   return (
-    <div>{meetings.map(m => <MeetingComponent members={m.members} />)}</div>
+    <div>{meetings.map(m => <MeetingComponent meetingId={m.id} members={m.members} onClick={onAddMember} />)}</div>
   );
 };
 

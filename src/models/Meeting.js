@@ -6,8 +6,8 @@ export default class Meeting {
   id: number;
   members: Person[];
 
-  constructor(id: number) {
+  constructor(id: number, members: Person[]) {
     this.id = id;
-    this.members = [];
+    this.members = members;
   }
 }
