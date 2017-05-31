@@ -16,7 +16,7 @@ export type AddMeetingAction = {
   members: Person[],
 };
 
-export const addMember = (meetingId: number, member: Person): AddMemberAction => {
+export const addMember = (meetingId: number, member: Person, region: string): AddMemberAction => {
   return ({
     type: 'ADD_MEMBER',
     id: meetingId,

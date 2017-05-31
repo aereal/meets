@@ -14,8 +14,8 @@ const mapStateToProps = ({ meetings }) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return ({
-    onAddMember: (meetingId: number, member: Person) => {
-      dispatch(addMember(meetingId, member));
+    onAddMember: (meetingId: number, member: Person, region: string) => {
+      dispatch(addMember(meetingId, member, region));
     },
   });
 };

@@ -10,7 +10,7 @@ import AddMemberButtonComponent from './AddMemberButtonComponent';
 type MeetingComponentProps = {
   meetingId: number,
   members: Person[],
-  onClick: (meetingId: number, member: Person) => void,
+  onClick: (meetingId: number, member: Person, region: string) => void,
 };
 
 const MeetingComponent = ({ meetingId, members, onClick }: MeetingComponentProps) => {
@@ -19,11 +19,12 @@ const MeetingComponent = ({ meetingId, members, onClick }: MeetingComponentProps
       <div className="card-content">
         <span className="card-title">Meeting {meetingId}</span>
         <p>
-          {members.map(m => <MemberComponent key={m.name} name={m.name} avatarUrl={m.avatarUrl} />)}
+          {members.map(m => <MemberComponent key={m.name} name={m.name} avatarUrl={m.avatarUrl} region={m.region} />)}
         </p>
       </div>
       <div className="card-action">
-        <AddMemberButtonComponent onClick={(member: Person) => onClick(meetingId, member)} />
+        <AddMemberButtonComponent region={"Tokyo"} onClick={(member: Person) => onClick(meetingId, member, "Tokyo")} />
+        <AddMemberButtonComponent region={"Kyoto"} onClick={(member: Person) => onClick(meetingId, member, "Kyoto")} />
       </div>
     </div>
   );
