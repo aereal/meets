@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 import Meeting from '../models/Meeting';
 import Person from '../models/Person';
 import type { Action, AddMemberAction } from '../actions';
+import reorderMeetings from '../services/reorderMeetingsService';
 
 type State = Meeting[];
 
@@ -23,6 +24,8 @@ const App = combineReducers({
             meeting.withNewMember(addMemberAction.member) :
             meeting;
         });
+      case 'REORDER':
+        return reorderMeetings(state);
       default:
         return state;
     }

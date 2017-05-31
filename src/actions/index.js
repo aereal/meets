@@ -29,4 +29,13 @@ export type AddMemberAction = {
   member: Person,
 };
 
-export type Action = AddMeetingAction | AddMemberAction;
+export const reorder = () => {
+  return {
+    type: 'REORDER',
+  };
+};
+export type Reorder = {
+  type: 'REORDER',
+};
+
+export type Action = AddMeetingAction | AddMemberAction | Reorder;
