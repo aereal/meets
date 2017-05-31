@@ -4,7 +4,6 @@ import Person from '../models/Person';
 
 let meetingId = 0;
 export const addMeeting = (): AddMeetingAction => {
-  debugger;
   return ({
     type: 'ADD_MEETING',
     id: meetingId++,
