@@ -9,7 +9,7 @@ import MemberComponent from './MemberComponent';
 type MeetingComponentProps = {
   meetingId: number,
   members: Person[],
-  onClick: (meetingId: number) => void,
+  onClick: (meetingId: number, member: Person) => void,
 };
 
 const MeetingComponent = ({ meetingId, members, onClick }: MeetingComponentProps) => {
