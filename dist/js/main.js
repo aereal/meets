@@ -23282,19 +23282,40 @@ var renderPlaceholder = function renderPlaceholder() {
   return _react2.default.createElement(
     'div',
     { className: 'card-panel' },
-    'Click button',
-    " ",
     _react2.default.createElement(
-      'button',
-      { className: 'btn-floating btn-large red waves-effect waves-light' },
+      'p',
+      null,
+      '\u53F3\u4E0B\u306E',
+      " ",
       _react2.default.createElement(
-        'i',
-        { className: 'material-icons' },
-        'add'
-      )
+        'button',
+        { className: 'btn-floating btn-large red waves-effect waves-light' },
+        _react2.default.createElement(
+          'i',
+          { className: 'material-icons' },
+          'add'
+        )
+      ),
+      " ",
+      '\u3092\u62BC\u3057\u3066MTG\u3092\u8FFD\u52A0\u3057\u307E\u3059\u3002'
     ),
-    " ",
-    'at bottom-right!'
+    _react2.default.createElement(
+      'p',
+      null,
+      _react2.default.createElement(
+        'button',
+        { className: 'btn-floating green' },
+        _react2.default.createElement(
+          'i',
+          { className: 'material-icons' },
+          'reorder'
+        )
+      ),
+      " ",
+      '\u3092\u62BC\u3059\u3068\u53C2\u52A0\u3059\u308B\u4EBA\u304C\u591A\u3044\u9806\u306BMTG\u3092\u4E26\u3073\u66FF\u3048\u307E\u3059\u3002',
+      _react2.default.createElement('br', null),
+      '\u5834\u6240\u3092\u307E\u305F\u3044\u3067Chromebox\u3092\u4F7F\u3046\u5FC5\u8981\u304C\u3042\u308B\u3068\u3088\u308A\u4E0A\u306B\u73FE\u308C\u307E\u3059\u3002'
+    )
   );
 };
 
