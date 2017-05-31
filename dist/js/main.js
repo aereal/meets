@@ -23278,12 +23278,32 @@ var _Person2 = _interopRequireDefault(_Person);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var renderPlaceholder = function renderPlaceholder() {
+  return _react2.default.createElement(
+    'div',
+    { className: 'card-panel' },
+    'Click button',
+    " ",
+    _react2.default.createElement(
+      'button',
+      { className: 'btn-floating btn-large red waves-effect waves-light' },
+      _react2.default.createElement(
+        'i',
+        { className: 'material-icons' },
+        'add'
+      )
+    ),
+    " ",
+    'at bottom-right!'
+  );
+};
+
 var MeetingsListComponent = function MeetingsListComponent(_ref) {
   var _ref$meetings = _ref.meetings,
       meetings = _ref$meetings === undefined ? [] : _ref$meetings,
       onAddMember = _ref.onAddMember;
 
-  return _react2.default.createElement(
+  return meetings.length === 0 ? renderPlaceholder() : _react2.default.createElement(
     'div',
     null,
     meetings.map(function (m) {
