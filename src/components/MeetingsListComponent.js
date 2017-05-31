@@ -15,13 +15,23 @@ type MeetingsListProps = {
 const renderPlaceholder = () => {
   return (
     <div className="card-panel">
-      Click button
-      {" "}
-      <button className="btn-floating btn-large red waves-effect waves-light">
-        <i className="material-icons">add</i>
-      </button>
-      {" "}
-      at bottom-right!
+      <p>
+        右下の
+        {" "}
+        <button className="btn-floating btn-large red waves-effect waves-light">
+          <i className="material-icons">add</i>
+        </button>
+        {" "}
+        を押してMTGを追加します。
+      </p>
+      <p>
+        <button className="btn-floating green">
+          <i className="material-icons">reorder</i>
+        </button>
+        {" "}
+        を押すと参加する人が多い順にMTGを並び替えます。<br/>
+        場所をまたいでChromeboxを使う必要があるとより上に現れます。
+      </p>
     </div>
   );
 };
