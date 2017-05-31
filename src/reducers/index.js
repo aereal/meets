@@ -2,13 +2,11 @@
 
 import { combineReducers } from 'redux';
 
+import Meeting from '../models/Meeting';
 import Person from '../models/Person';
 import type { Action, AddMemberAction } from '../actions';
 
-type State = {
-  id: number,
-  members: Person[],
-}[];
+type State = Meeting[];
 
 const App = combineReducers({
   meetings(state: State = [], action: Action) {
@@ -16,19 +14,13 @@ const App = combineReducers({
       case 'ADD_MEETING':
         return [
           ...state,
-          {
-            id: action.id,
-            members: [],
-          }
+          new Meeting(action.id, []),
         ];
       case 'ADD_MEMBER':
         const addMemberAction = (action: AddMemberAction);
         return state.map(meeting => {
           return (meeting.id === addMemberAction.id) ?
-            {
-              id: meeting.id,
-              members: meeting.members.concat([addMemberAction.member]),
-            } :
+            meeting.withNewMember(addMemberAction.member) :
             meeting;
         });
       default:

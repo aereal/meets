@@ -10,4 +10,11 @@ export default class Meeting {
     this.id = id;
     this.members = members;
   }
+
+  withNewMember(newMember: Person): Meeting {
+    return new Meeting(
+      this.id,
+      this.members.concat([newMember]),
+    );
+  }
 }
