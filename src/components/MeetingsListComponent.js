@@ -12,10 +12,26 @@ type MeetingsListProps = {
   onAddMember: () => void,
 };
 
-const MeetingsListComponent = ({ meetings = [], onAddMember }: MeetingsListProps) => {
+const renderPlaceholder = () => {
   return (
-    <div>{meetings.map(m => <MeetingComponent key={m.id} meetingId={m.id} members={m.members} onClick={onAddMember} />)}</div>
+    <div className="card-panel">
+      Click button
+      {" "}
+      <button className="btn-floating btn-large red waves-effect waves-light">
+        <i className="material-icons">add</i>
+      </button>
+      {" "}
+      at bottom-right!
+    </div>
   );
+};
+
+const MeetingsListComponent = ({ meetings = [], onAddMember }: MeetingsListProps) => {
+  return meetings.length === 0 ?
+    renderPlaceholder() :
+    (
+      <div>{meetings.map(m => <MeetingComponent key={m.id} meetingId={m.id} members={m.members} onClick={onAddMember} />)}</div>
+    );
 };
 
 export default MeetingsListComponent;
