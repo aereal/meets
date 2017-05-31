@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 
 import Person from '../models/Person';
 import MemberComponent from './MemberComponent';
+import AddMemberButtonComponent from './AddMemberButtonComponent';
 
 type MeetingComponentProps = {
   meetingId: number,
@@ -22,9 +23,7 @@ const MeetingComponent = ({ meetingId, members, onClick }: MeetingComponentProps
         </p>
       </div>
       <div className="card-action">
-        <button className="waves-effect waves-teal btn-flat" onClick={() => onClick(meetingId, new Person(window.prompt("member name?")))}>
-          Add Person
-        </button>
+        <AddMemberButtonComponent onClick={(member: Person) => onClick(meetingId, member)} />
       </div>
     </div>
   );
