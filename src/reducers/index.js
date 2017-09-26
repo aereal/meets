@@ -4,12 +4,26 @@ import { combineReducers } from 'redux';
 
 import Meeting from '../models/Meeting';
 import Person from '../models/Person';
-import type { Action, AddMemberAction } from '../actions';
+import type { Action, AddMemberAction, AddUserAction } from '../actions';
 import reorderMeetings from '../services/reorderMeetingsService';
 
 type State = Meeting[];
 
+type PeopleState = Person[];
+
 const App = combineReducers({
+  people(state: PeopleState = [], action: Action /* TODO */) {
+    switch (action.type) {
+      case 'ADD_USER':
+        const addUserAction = (action: AddUserAction);
+        return [
+          ...state,
+          addUserAction.person,
+        ];
+      default:
+        return state;
+    }
+  },
   meetings(state: State = [], action: Action) {
     switch (action.type) {
       case 'ADD_MEETING':
