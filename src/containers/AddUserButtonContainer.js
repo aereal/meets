@@ -3,7 +3,7 @@
 import { connect } from 'react-redux';
 
 import AddUserButtonComponent from '../components/AddUserButtonComponent';
-import { addUser } from '../actions';
+import { createUser } from '../actions';
 import Person from '../models/Person';
 
 const mapStateToProps = ({ people }) => {
@@ -15,7 +15,9 @@ const mapStateToProps = ({ people }) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const props = ({
     onAddUser: (person: Person) => {
-      dispatch(addUser(person));
+      const ret = dispatch(createUser(person));
+      ret.then(createdUser => {
+      });
     },
   });
   return props;

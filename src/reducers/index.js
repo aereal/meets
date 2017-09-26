@@ -4,26 +4,36 @@ import { combineReducers } from 'redux';
 
 import Meeting from '../models/Meeting';
 import Person from '../models/Person';
-import type { Action, AddMemberAction, AddUserAction } from '../actions';
+import type { Action, AddMemberAction, RequestCreateUserAction, ReceiveCreatedUserAction } from '../actions';
 import reorderMeetings from '../services/reorderMeetingsService';
 
 type State = Meeting[];
 
 type PeopleState = {
   people: Person[],
+  isFetching: boolean,
 };
 
 const App = combineReducers({
-  people(state: PeopleState = { people: [] }, action: Action /* TODO */) {
+  people(state: PeopleState = { people: [], isFetching: false }, action: Action /* TODO */) {
     switch (action.type) {
-      case 'ADD_USER':
-        const addUserAction = (action: AddUserAction);
+      case 'REQUEST_CREATE_USER':
+        const requestAction = (action: RequestCreateUserAction);
         return ({
+          people: state.people,
+          isFetching: true,
+        });
+      case 'RECEIVE_CREATED_USER':
+        const receiveAction = (action: ReceiveCreatedUserAction);
+        const { createdUser } = receiveAction;
+        const newState = ({
+          isFetching: false,
           people: [
             ...state.people,
-            addUserAction.person,
+            createdUser,
           ],
         });
+        return newState;
       default:
         return state;
     }

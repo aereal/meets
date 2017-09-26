@@ -5,7 +5,6 @@ import { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 
-import {addUser} from '../actions/';
 import Person from '../models/Person';
 
 type Props = {

@@ -38,16 +38,46 @@ export type Reorder = {
   type: 'REORDER',
 };
 
-export type AddUserAction = {
-  type: 'ADD_USER',
+export type RequestCreateUserAction = {
+  type: 'REQUEST_CREATE_USER',
   person: Person,
 };
 
-export const addUser = (person: Person): AddUserAction => {
+export const requestCreateUser = (person: Person): RequestCreateUserAction => {
   return ({
-    type: 'ADD_USER',
+    type: 'REQUEST_CREATE_USER',
     person: person,
   });
+};
+
+export type ReceiveCreatedUserAction = {
+  type: 'RECEIVE_CREATED_USER',
+  createdUser: Person,
+};
+
+export const receiveCreatedUser = (created: Person) => {
+  return ({
+    type: 'RECEIVE_CREATED_USER',
+    createdUser: created,
+  });
+};
+
+const doCreateUser = (person: Person) => {
+  return new Promise((ok, ng) => {
+    setTimeout(() => {
+      ok(person);
+    }, 1000);
+  });
+};
+
+export const createUser = (person: Person): (any => any) /* TODO */ => {
+  return (dispatch: any) => {
+    dispatch(requestCreateUser(person));
+
+    return doCreateUser(person).then(created => {
+      dispatch(receiveCreatedUser(created));
+    });
+  };
 };
 
 export type Action = AddMeetingAction | AddMemberAction | Reorder | AddUserAction;
