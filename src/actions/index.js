@@ -38,4 +38,16 @@ export type Reorder = {
   type: 'REORDER',
 };
 
-export type Action = AddMeetingAction | AddMemberAction | Reorder;
+export type AddUserAction = {
+  type: 'ADD_USER',
+  person: Person,
+};
+
+export const addUser = (person: Person): AddUserAction => {
+  return ({
+    type: 'ADD_USER',
+    person: person,
+  });
+};
+
+export type Action = AddMeetingAction | AddMemberAction | Reorder | AddUserAction;
