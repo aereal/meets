@@ -9,17 +9,21 @@ import reorderMeetings from '../services/reorderMeetingsService';
 
 type State = Meeting[];
 
-type PeopleState = Person[];
+type PeopleState = {
+  people: Person[],
+};
 
 const App = combineReducers({
-  people(state: PeopleState = [], action: Action /* TODO */) {
+  people(state: PeopleState = { people: [] }, action: Action /* TODO */) {
     switch (action.type) {
       case 'ADD_USER':
         const addUserAction = (action: AddUserAction);
-        return [
-          ...state,
-          addUserAction.person,
-        ];
+        return ({
+          people: [
+            ...state.people,
+            addUserAction.person,
+          ],
+        });
       default:
         return state;
     }
