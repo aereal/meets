@@ -9,7 +9,8 @@
     "compile:js": "browserify -o $npm_package_config_out_file -t babelify $npm_package_config_main_file",
     "compile:js:watch": "watchify -o $npm_package_config_out_file -t babelify $npm_package_config_main_file",
     "server": "python -m SimpleHTTPServer $npm_package_config_port",
-    "start": "run-p server compile:js:watch"
+    "proxy-server": "nginx -g 'daemon off;' -p . -c etc/nginx.conf",
+    "start": "run-p server proxy-server compile:js:watch"
   },
   "config": {
     "port": 8001,
