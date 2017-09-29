@@ -1,6 +1,7 @@
 // @flow
 
 import Person from '../models/Person';
+import 'whatwg-fetch';
 
 let meetingId = 0;
 export const addMeeting = (): AddMeetingAction => {
@@ -63,11 +64,20 @@ export const receiveCreatedUser = (created: Person) => {
 };
 
 const doCreateUser = (person: Person) => {
-  return new Promise((ok, ng) => {
-    setTimeout(() => {
-      ok(person);
-    }, 1000);
-  });
+  return fetch('/api/users', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: person.name,
+      location: person.region,
+    }),
+  })
+    .then(res => res.json())
+    .then(json => {
+      return person;
+    })
 };
 
 export const createUser = (person: Person): (any => any) /* TODO */ => {
@@ -80,4 +90,4 @@ export const createUser = (person: Person): (any => any) /* TODO */ => {
   };
 };
 
-export type Action = AddMeetingAction | AddMemberAction | Reorder | AddUserAction;
+export type Action = AddMeetingAction | AddMemberAction | Reorder | RequestCreateUserAction | ReceiveCreatedUserAction;
