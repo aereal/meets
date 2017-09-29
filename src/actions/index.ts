@@ -1,5 +1,3 @@
-// @flow
-
 import Person from '../models/Person';
 import 'whatwg-fetch';
 
@@ -80,7 +78,7 @@ const doCreateUser = (person: Person) => {
     })
 };
 
-export const createUser = (person: Person): (any => any) /* TODO */ => {
+export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   return (dispatch: any) => {
     dispatch(requestCreateUser(person));
 

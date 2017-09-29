@@ -6,17 +6,19 @@ import AddUserButtonComponent from '../components/AddUserButtonComponent';
 import { createUser } from '../actions';
 import Person from '../models/Person';
 
-const mapStateToProps = ({ people }) => {
+const mapStateToProps = (args: any) => {
+  const { people } = args;
+  debugger;
   return ({
-    people,
+    people: (people as Person[]),
   });
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   const props = ({
     onAddUser: (person: Person) => {
       const ret = dispatch(createUser(person));
-      ret.then(createdUser => {
+      ret.then((createdUser: Person) => {
       });
     },
   });

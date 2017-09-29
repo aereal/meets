@@ -2,9 +2,10 @@
 
 import Meeting from '../models/Meeting';
 
+type Accum = { [key: string]: number }
 const calculateScore = (meeting: Meeting): number => {
   const membersCount = meeting.members.length;
-  const regionDist = meeting.members.reduce((accum, member) => {
+  const regionDist = meeting.members.reduce<Accum>((accum, member) => {
     accum[member.region]++;
     return accum;
   }, {});
@@ -13,7 +14,7 @@ const calculateScore = (meeting: Meeting): number => {
 };
 
 const reorderMeetings = (meetings: Meeting[]): Meeting[] => {
-  const newMeetings = Array.from(meetings);
+  const newMeetings = meetings.slice();
   newMeetings.sort((a, b) => calculateScore(b) - calculateScore(a));
   return newMeetings;
 };
