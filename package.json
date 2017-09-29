@@ -6,16 +6,16 @@
   "author": "aereal <aereal@aereal.org>",
   "license": "MIT",
   "scripts": {
-    "compile:js": "browserify -o $npm_package_config_out_file -t babelify $npm_package_config_main_file",
-    "compile:js:watch": "watchify -o $npm_package_config_out_file -t babelify $npm_package_config_main_file",
+    "compile:ts": "browserify -d -o $npm_package_config_out_file -p [tsify -p .] $npm_package_config_main_file",
+    "compile:ts:watch": "watchify -v -o $npm_package_config_out_file -p [tsify -p .] $npm_package_config_main_file",
     "server": "python -m SimpleHTTPServer $npm_package_config_port",
     "proxy-server": "nginx -g 'daemon off;' -p . -c etc/nginx.conf",
-    "start": "run-p server proxy-server compile:js:watch"
+    "start": "run-p server proxy-server compile:ts:watch"
   },
   "config": {
     "port": 8001,
-    "out_file": "dist/js/main.js",
-    "main_file": "src/main.js"
+    "out_file": "dist/js/index.js",
+    "main_file": "src/index.tsx"
   },
   "devDependencies": {
     "@types/react": "^16.0.7",
