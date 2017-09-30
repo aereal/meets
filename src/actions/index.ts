@@ -15,15 +15,15 @@ export type MeetingAdded = {
   members: Person[],
 };
 
-export const addMember = (meetingId: number, member: Person): AddMemberAction => {
+export const addMember = (meetingId: number, member: Person): MemberAdded => {
   return ({
-    type: 'ADD_MEMBER',
+    type: 'MEMBER_ADDED',
     id: meetingId,
     member: member,
   });
 };
-export type AddMemberAction = {
-  type: 'ADD_MEMBER',
+export type MemberAdded = {
+  type: 'MEMBER_ADDED',
   id: number,
   member: Person,
 };
@@ -88,4 +88,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = MeetingAdded | AddMemberAction | Reorder | RequestCreateUserAction | ReceiveCreatedUserAction;
+export type Action = MeetingAdded | MemberAdded | Reorder | RequestCreateUserAction | ReceiveCreatedUserAction;
