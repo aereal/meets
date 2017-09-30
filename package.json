@@ -8,12 +8,10 @@
   "scripts": {
     "compile:ts": "browserify -d -o $npm_package_config_out_file -p [tsify -p .] $npm_package_config_main_file",
     "compile:ts:watch": "watchify -v -o $npm_package_config_out_file -p [tsify -p .] $npm_package_config_main_file",
-    "server": "python -m SimpleHTTPServer $npm_package_config_port",
-    "proxy-server": "nginx -g 'daemon off;' -p . -c etc/nginx.conf",
-    "start": "run-p server proxy-server compile:ts:watch"
+    "server": "nginx -g 'daemon off;' -p . -c etc/nginx.conf",
+    "start": "run-p server compile:ts:watch"
   },
   "config": {
-    "port": 8001,
     "out_file": "dist/js/index.js",
     "main_file": "src/index.tsx"
   },
