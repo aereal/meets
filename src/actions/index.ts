@@ -30,11 +30,11 @@ export type MemberAdded = {
 
 export const reorder = () => {
   return {
-    type: 'REORDER',
+    type: 'REORDERED',
   };
 };
-export type Reorder = {
-  type: 'REORDER',
+export type Reordered = {
+  type: 'REORDERED',
 };
 
 export type RequestCreateUserAction = {
@@ -88,4 +88,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = MeetingAdded | MemberAdded | Reorder | RequestCreateUserAction | ReceiveCreatedUserAction;
+export type Action = MeetingAdded | MemberAdded | Reordered | RequestCreateUserAction | ReceiveCreatedUserAction;
