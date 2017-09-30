@@ -37,14 +37,14 @@ export type Reordered = {
   type: 'REORDERED',
 };
 
-export type RequestCreateUserAction = {
-  type: 'REQUEST_CREATE_USER',
+export type CreateUserRequested = {
+  type: 'CREATE_USER_REQUESTED',
   person: Person,
 };
 
-export const requestCreateUser = (person: Person): RequestCreateUserAction => {
+export const requestCreateUser = (person: Person): CreateUserRequested => {
   return ({
-    type: 'REQUEST_CREATE_USER',
+    type: 'CREATE_USER_REQUESTED',
     person: person,
   });
 };
@@ -88,4 +88,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = MeetingAdded | MemberAdded | Reordered | RequestCreateUserAction | ReceiveCreatedUserAction;
+export type Action = MeetingAdded | MemberAdded | Reordered | CreateUserRequested | ReceiveCreatedUserAction;
