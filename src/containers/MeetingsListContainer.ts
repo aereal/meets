@@ -3,6 +3,7 @@
 import { connect } from 'react-redux';
 
 import MeetingsListComponent from '../components/MeetingsListComponent';
+import { CallbackProps } from '../components/MeetingsListComponent';
 import { addMember } from '../actions';
 import Person from '../models/Person';
 import Meeting from '../models/Meeting';
@@ -14,10 +15,10 @@ const mapStateToProps = (args: any) => {
   });
 };
 
-const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+const mapDispatchToProps = (dispatch: any): CallbackProps => {
   return ({
-    onAddMember: (meetingId: number, member: Person, region: string) => {
-      dispatch(addMember(meetingId, member, region));
+    onAddMember: (meetingId: number, member: Person) => {
+      dispatch(addMember(meetingId, member));
     },
   });
 };

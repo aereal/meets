@@ -7,10 +7,13 @@ import {connect} from 'react-redux';
 
 import Person from '../models/Person';
 
-type Props = {
-  onAddUser: any, // TODO
-  people: Person[],
-};
+export interface CallbackProps {
+  onAddUser: any;
+}
+
+interface Props extends CallbackProps {
+  people: Person[];
+}
 
 type State = {
   name: string,

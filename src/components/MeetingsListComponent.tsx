@@ -6,10 +6,12 @@ import MeetingComponent from './MeetingComponent';
 import Meeting from '../models/Meeting';
 import Person from '../models/Person';
 
-type MeetingsListProps = {
-  meetings: Meeting[],
-  onAddMember: () => void,
-};
+export interface CallbackProps {
+  onAddMember: (meetingId: number, member: Person) => void;
+}
+interface MeetingsListProps extends CallbackProps {
+  meetings: Meeting[];
+}
 
 const renderPlaceholder = () => {
   return (
