@@ -49,14 +49,14 @@ export const requestCreateUser = (person: Person): CreateUserRequested => {
   });
 };
 
-export type ReceiveCreatedUserAction = {
-  type: 'RECEIVE_CREATED_USER',
+export type CreatedUserReceived = {
+  type: 'CREATED_USER_RECEIVED',
   createdUser: Person,
 };
 
 export const receiveCreatedUser = (created: Person) => {
   return ({
-    type: 'RECEIVE_CREATED_USER',
+    type: 'CREATED_USER_RECEIVED',
     createdUser: created,
   });
 };
@@ -88,4 +88,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = MeetingAdded | MemberAdded | Reordered | CreateUserRequested | ReceiveCreatedUserAction;
+export type Action = MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
