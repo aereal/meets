@@ -2,15 +2,15 @@ import Person from '../models/Person';
 import 'whatwg-fetch';
 
 let meetingId = 0;
-export const addMeeting = (): AddMeetingAction => {
+export const addMeeting = (): MeetingAdded => {
   return ({
-    type: 'ADD_MEETING',
+    type: 'MEETING_ADDED',
     id: meetingId++,
     members: [],
   });
 };
-export type AddMeetingAction = {
-  type: 'ADD_MEETING',
+export type MeetingAdded = {
+  type: 'MEETING_ADDED',
   id: number,
   members: Person[],
 };
@@ -88,4 +88,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = AddMeetingAction | AddMemberAction | Reorder | RequestCreateUserAction | ReceiveCreatedUserAction;
+export type Action = MeetingAdded | AddMemberAction | Reorder | RequestCreateUserAction | ReceiveCreatedUserAction;
