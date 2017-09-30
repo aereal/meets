@@ -40,7 +40,7 @@ const App = combineReducers({
   },
   meetings(state: State = [], action: Action) {
     switch (action.type) {
-      case 'ADD_MEETING':
+      case 'MEETING_ADDED':
         return [
           ...state,
           new Meeting(action.id, []),
