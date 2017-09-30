@@ -52,7 +52,7 @@ const App = combineReducers({
             meeting.withNewMember(addMemberAction.member) :
             meeting;
         });
-      case 'REORDER':
+      case 'REORDERED':
         return reorderMeetings(state);
       default:
         return state;
