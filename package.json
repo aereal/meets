@@ -6,6 +6,7 @@
   "author": "aereal <aereal@aereal.org>",
   "license": "MIT",
   "scripts": {
+    "compile": "run-p compile:ts",
     "compile:ts": "browserify -d -o $npm_package_config_out_file -p [tsify -p .] $npm_package_config_main_file",
     "compile:ts:watch": "watchify -v -o $npm_package_config_out_file -p [tsify -p .] $npm_package_config_main_file",
     "server": "nginx -g 'daemon off;' -p . -c etc/nginx.conf",
