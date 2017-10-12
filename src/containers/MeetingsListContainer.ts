@@ -7,11 +7,12 @@ import { CallbackProps } from '../components/MeetingsListComponent';
 import { addMember } from '../actions';
 import Person from '../models/Person';
 import Meeting from '../models/Meeting';
+import { GlobalState } from '../reducers/';
 
-const mapStateToProps = (args: any) => {
+const mapStateToProps = (args: GlobalState) => {
   const { meetings } = args;
   return ({
-    meetings: meetings as Meeting[],
+    meetings: meetings.meetings,
   });
 };
 
