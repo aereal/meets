@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 
 import Meeting from '../models/Meeting';
 import Person from '../models/Person';
-import { Action, AddMemberAction, RequestCreateUserAction, ReceiveCreatedUserAction } from '../actions';
+import { Action, MemberAdded, CreateUserRequested, CreatedUserReceived } from '../actions';
 import reorderMeetings from '../services/reorderMeetingsService';
 
 type State = Meeting[];
@@ -17,14 +17,14 @@ type PeopleState = {
 const App = combineReducers({
   people(state: PeopleState = { people: [], isFetching: false }, action: Action /* TODO */) {
     switch (action.type) {
-      case 'REQUEST_CREATE_USER':
-        const requestAction = action as RequestCreateUserAction;
+      case 'CREATE_USER_REQUESTED':
+        const requestAction = action as CreateUserRequested;
         return ({
           people: state.people,
           isFetching: true,
         });
-      case 'RECEIVE_CREATED_USER':
-        const receiveAction = action as ReceiveCreatedUserAction;
+      case 'CREATED_USER_RECEIVED':
+        const receiveAction = action as CreatedUserReceived;
         const { createdUser } = receiveAction;
         const newState = ({
           isFetching: false,
@@ -40,19 +40,19 @@ const App = combineReducers({
   },
   meetings(state: State = [], action: Action) {
     switch (action.type) {
-      case 'ADD_MEETING':
+      case 'MEETING_ADDED':
         return [
           ...state,
           new Meeting(action.id, []),
         ];
-      case 'ADD_MEMBER':
-        const addMemberAction = action as AddMemberAction;
+      case 'MEMBER_ADDED':
+        const addMemberAction = action as MemberAdded;
         return state.map(meeting => {
           return (meeting.id === addMemberAction.id) ?
             meeting.withNewMember(addMemberAction.member) :
             meeting;
         });
-      case 'REORDER':
+      case 'REORDERED':
         return reorderMeetings(state);
       default:
         return state;

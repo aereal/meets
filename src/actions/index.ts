@@ -2,61 +2,61 @@ import Person from '../models/Person';
 import 'whatwg-fetch';
 
 let meetingId = 0;
-export const addMeeting = (): AddMeetingAction => {
+export const addMeeting = (): MeetingAdded => {
   return ({
-    type: 'ADD_MEETING',
+    type: 'MEETING_ADDED',
     id: meetingId++,
     members: [],
   });
 };
-export type AddMeetingAction = {
-  type: 'ADD_MEETING',
+export type MeetingAdded = {
+  type: 'MEETING_ADDED',
   id: number,
   members: Person[],
 };
 
-export const addMember = (meetingId: number, member: Person): AddMemberAction => {
+export const addMember = (meetingId: number, member: Person): MemberAdded => {
   return ({
-    type: 'ADD_MEMBER',
+    type: 'MEMBER_ADDED',
     id: meetingId,
     member: member,
   });
 };
-export type AddMemberAction = {
-  type: 'ADD_MEMBER',
+export type MemberAdded = {
+  type: 'MEMBER_ADDED',
   id: number,
   member: Person,
 };
 
 export const reorder = () => {
   return {
-    type: 'REORDER',
+    type: 'REORDERED',
   };
 };
-export type Reorder = {
-  type: 'REORDER',
+export type Reordered = {
+  type: 'REORDERED',
 };
 
-export type RequestCreateUserAction = {
-  type: 'REQUEST_CREATE_USER',
+export type CreateUserRequested = {
+  type: 'CREATE_USER_REQUESTED',
   person: Person,
 };
 
-export const requestCreateUser = (person: Person): RequestCreateUserAction => {
+export const requestCreateUser = (person: Person): CreateUserRequested => {
   return ({
-    type: 'REQUEST_CREATE_USER',
+    type: 'CREATE_USER_REQUESTED',
     person: person,
   });
 };
 
-export type ReceiveCreatedUserAction = {
-  type: 'RECEIVE_CREATED_USER',
+export type CreatedUserReceived = {
+  type: 'CREATED_USER_RECEIVED',
   createdUser: Person,
 };
 
 export const receiveCreatedUser = (created: Person) => {
   return ({
-    type: 'RECEIVE_CREATED_USER',
+    type: 'CREATED_USER_RECEIVED',
     createdUser: created,
   });
 };
@@ -88,4 +88,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = AddMeetingAction | AddMemberAction | Reorder | RequestCreateUserAction | ReceiveCreatedUserAction;
+export type Action = MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
