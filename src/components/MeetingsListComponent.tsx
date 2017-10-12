@@ -8,12 +8,17 @@ import Person from '../models/Person';
 
 export interface CallbackProps {
   onAddMember: (meetingId: number, member: Person) => void;
+  onFetchMeetings: () => void;
 }
 interface MeetingsListProps extends CallbackProps {
   meetings: Meeting[];
 }
 
 class MeetingsListComponent extends React.PureComponent<MeetingsListProps, {}> {
+  componentDidMount() {
+    this.props.onFetchMeetings();
+  }
+
   renderPlaceholder() {
     return (
       <div className="card-panel">
