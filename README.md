@@ -6,6 +6,6 @@ Enjoy remote working!
 
 ```
 yarn # Install dependencies
-yarn run compile:js # Compile JS
+yarn run compile
 yarn run start # open http://localhost:8001
 ```

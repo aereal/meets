@@ -1,22 +1,26 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
+import { ChangeEventHandler, MouseEventHandler } from 'react';
 import { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 
 import Person from '../models/Person';
 
-type Props = {
-  onAddUser: any, // TODO
-};
+export interface CallbackProps {
+  onAddUser: any;
+}
+
+interface Props extends CallbackProps {
+  people: Person[];
+}
 
 type State = {
   name: string,
   region: string,
 };
 
-class AddUserButton extends PureComponent<void, Props, State> {
+class AddUserButton extends PureComponent<Props, State> {
   state: State;
 
   constructor() {
@@ -28,13 +32,13 @@ class AddUserButton extends PureComponent<void, Props, State> {
   }
 
   render() {
-    const onChangeName = (event) => {
+    const onChangeName: ChangeEventHandler<HTMLInputElement> = (event) => {
       this.setState({ name: event.target.value });
     };
-    const onChangeRegion = (event) => {
+    const onChangeRegion: ChangeEventHandler<HTMLInputElement> = (event) => {
       this.setState({ region: event.target.value });
     };
-    const onClick = (event) => {
+    const onClick: MouseEventHandler<HTMLElement> = (event) => {
       event.preventDefault();
       const { name, region } = this.state;
       const { onAddUser } = this.props;

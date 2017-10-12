@@ -1,7 +1,4 @@
-// @flow
-
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
 
 import AddMeetingButtonComponent from './AddMeetingButtonComponent';
 import MeetingsListContainer from '../containers/MeetingsListContainer';

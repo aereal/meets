@@ -1,5 +1,3 @@
-// @flow
-
 import Person from '../models/Person';
 import 'whatwg-fetch';
 
@@ -17,7 +15,7 @@ export type AddMeetingAction = {
   members: Person[],
 };
 
-export const addMember = (meetingId: number, member: Person, region: string): AddMemberAction => {
+export const addMember = (meetingId: number, member: Person): AddMemberAction => {
   return ({
     type: 'ADD_MEMBER',
     id: meetingId,
@@ -75,12 +73,12 @@ const doCreateUser = (person: Person) => {
     }),
   })
     .then(res => res.json())
-    .then(json => {
+    .then(() => { // TODO take json parameter
       return person;
     })
 };
 
-export const createUser = (person: Person): (any => any) /* TODO */ => {
+export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   return (dispatch: any) => {
     dispatch(requestCreateUser(person));
 

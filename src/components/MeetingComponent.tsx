@@ -1,7 +1,6 @@
 // @flow
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
 
 import Person from '../models/Person';
 import MemberComponent from './MemberComponent';

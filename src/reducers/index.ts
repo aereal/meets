@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 
 import Meeting from '../models/Meeting';
 import Person from '../models/Person';
-import type { Action, AddMemberAction, RequestCreateUserAction, ReceiveCreatedUserAction } from '../actions';
+import { Action, AddMemberAction, RequestCreateUserAction, ReceiveCreatedUserAction } from '../actions';
 import reorderMeetings from '../services/reorderMeetingsService';
 
 type State = Meeting[];
@@ -18,13 +18,13 @@ const App = combineReducers({
   people(state: PeopleState = { people: [], isFetching: false }, action: Action /* TODO */) {
     switch (action.type) {
       case 'REQUEST_CREATE_USER':
-        const requestAction = (action: RequestCreateUserAction);
+        const requestAction = action as RequestCreateUserAction;
         return ({
           people: state.people,
           isFetching: true,
         });
       case 'RECEIVE_CREATED_USER':
-        const receiveAction = (action: ReceiveCreatedUserAction);
+        const receiveAction = action as ReceiveCreatedUserAction;
         const { createdUser } = receiveAction;
         const newState = ({
           isFetching: false,
@@ -46,7 +46,7 @@ const App = combineReducers({
           new Meeting(action.id, []),
         ];
       case 'ADD_MEMBER':
-        const addMemberAction = (action: AddMemberAction);
+        const addMemberAction = action as AddMemberAction;
         return state.map(meeting => {
           return (meeting.id === addMemberAction.id) ?
             meeting.withNewMember(addMemberAction.member) :
