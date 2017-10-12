@@ -15,6 +15,26 @@ export type MeetingAdded = {
   members: Person[],
 };
 
+export type MeetingsRequested = {
+  type: 'MEETINGS_REQUESTED',
+};
+
+export const requestMeetings = (): MeetingsRequested => {
+  return ({
+    type: 'MEETINGS_REQUESTED',
+  });
+};
+
+export type MeetingsReceived = {
+  type: 'MEETINGS_RECEIVED',
+};
+
+export const receiveMeetings = (): MeetingsReceived => {
+  return ({
+    type: 'MEETINGS_RECEIVED',
+  });
+};
+
 export const addMember = (meetingId: number, member: Person): MemberAdded => {
   return ({
     type: 'MEMBER_ADDED',
@@ -88,4 +108,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
+export type Action = MeetingsRequested | MeetingsReceived | MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
