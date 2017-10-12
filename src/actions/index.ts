@@ -89,7 +89,7 @@ const doCreateUser = (person: Person) => {
     },
     body: JSON.stringify({
       name: person.name,
-      location: person.region,
+      location: person.location,
     }),
   })
     .then(res => res.json())

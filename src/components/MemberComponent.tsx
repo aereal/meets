@@ -5,12 +5,12 @@ import * as React from 'react';
 type MemberComponentProps = {
   avatarUrl: string,
   name: string,
-  region: string,
+  location: string,
 };
 
-const MemberComponent = ({ avatarUrl, name, region }: MemberComponentProps) => {
+const MemberComponent = ({ avatarUrl, name, location }: MemberComponentProps) => {
   return (
-    <img src={avatarUrl} alt={name} className="circle" data-region={region} />
+    <img src={avatarUrl} alt={name} className="circle" data-location={location} />
   );
 };
 

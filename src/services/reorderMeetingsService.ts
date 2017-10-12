@@ -5,11 +5,11 @@ import Meeting from '../models/Meeting';
 type Accum = { [key: string]: number }
 const calculateScore = (meeting: Meeting): number => {
   const membersCount = meeting.members.length;
-  const regionDist = meeting.members.reduce<Accum>((accum, member) => {
-    accum[member.region]++;
+  const locationDist = meeting.members.reduce<Accum>((accum, member) => {
+    accum[member.location]++;
     return accum;
   }, {});
-  const coefficient = Object.keys(regionDist).length;
+  const coefficient = Object.keys(locationDist).length;
   return membersCount * coefficient;
 };
 

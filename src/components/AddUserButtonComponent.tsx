@@ -17,7 +17,7 @@ interface Props extends CallbackProps {
 
 type State = {
   name: string,
-  region: string,
+  location: string,
 };
 
 class AddUserButton extends PureComponent<Props, State> {
@@ -27,7 +27,7 @@ class AddUserButton extends PureComponent<Props, State> {
     super();
     this.state = {
       name: '',
-      region: '',
+      location: '',
     };
   }
 
@@ -35,16 +35,16 @@ class AddUserButton extends PureComponent<Props, State> {
     const onChangeName: ChangeEventHandler<HTMLInputElement> = (event) => {
       this.setState({ name: event.target.value });
     };
-    const onChangeRegion: ChangeEventHandler<HTMLInputElement> = (event) => {
-      this.setState({ region: event.target.value });
+    const onChangeLocation: ChangeEventHandler<HTMLInputElement> = (event) => {
+      this.setState({ location: event.target.value });
     };
     const onClick: MouseEventHandler<HTMLElement> = (event) => {
       event.preventDefault();
-      const { name, region } = this.state;
+      const { name, location } = this.state;
       const { onAddUser } = this.props;
-      const newPerson = new Person(name, region);
+      const newPerson = new Person(name, location);
       onAddUser(newPerson);
-      this.setState({ name: '', region: '' });
+      this.setState({ name: '', location: '' });
     };
     return (
       <div>
@@ -54,8 +54,8 @@ class AddUserButton extends PureComponent<Props, State> {
             <label htmlFor="new_user_name">Name</label>
           </div>
           <div className="input-field col6">
-            <input id="new_user_region" className="validate" type="text" onChange={onChangeRegion} value={this.state.region} />
-            <label htmlFor="new_user_region">Region</label>
+            <input id="new_user_location" className="validate" type="text" onChange={onChangeLocation} value={this.state.location} />
+            <label htmlFor="new_user_location">Location</label>
           </div>
         </div>
         <div>

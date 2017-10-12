@@ -5,19 +5,19 @@ import * as React from 'react';
 import Person from '../models/Person';
 
 type Props = {
-  region: string,
+  location: string,
   onClick: (member: Person) => void,
 };
 
-const AddMemberButtonComponent = ({ region, onClick }: Props) => {
+const AddMemberButtonComponent = ({ location, onClick }: Props) => {
   const onButtonClicked: () => void = () => {
     const name = window.prompt("member name?");
-    const newPerson = new Person(name as string, region);
+    const newPerson = new Person(name as string, location);
     onClick(newPerson);
   };
   return (
     <button className="waves-effect waves-teal btn-flat" onClick={onButtonClicked}>
-      Add {region} Person
+      Add {location} Person
     </button>
   );
 };

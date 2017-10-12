@@ -2,11 +2,11 @@
 
 export default class Person {
   name: string;
-  region: string;
+  location: string;
 
-  constructor(name: string, region: string) {
+  constructor(name: string, location: string) {
     this.name = name;
-    this.region = region;
+    this.location = location;
   }
 
   get avatarUrl(): string {
