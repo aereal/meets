@@ -1,4 +1,5 @@
 import Person from '../models/Person';
+import Meeting from '../models/Meeting';
 import 'whatwg-fetch';
 
 let meetingId = 0;
@@ -13,6 +14,48 @@ export type MeetingAdded = {
   type: 'MEETING_ADDED',
   id: number,
   members: Person[],
+};
+
+export type MeetingsRequested = {
+  type: 'MEETINGS_REQUESTED',
+};
+
+export const requestMeetings = (): MeetingsRequested => {
+  return ({
+    type: 'MEETINGS_REQUESTED',
+  });
+};
+
+export type MeetingsReceived = {
+  type: 'MEETINGS_RECEIVED',
+  fetchedMeetings: Meeting[],
+};
+
+export const receiveMeetings = (fetchedMeetings: Meeting[]): MeetingsReceived => {
+  return ({
+    type: 'MEETINGS_RECEIVED',
+    fetchedMeetings,
+  });
+};
+
+const doFetchMeetings = (): Promise<Meeting[]> => {
+  return fetch('/api/meetings/today')
+    .then(res => res.json())
+    .then(decoded => {
+      const fetched: Meeting[] = decoded.map((d: any) => new Meeting(d.id, d.members.map((m: any) => new Person(m.name, m.location))));
+      return fetched;
+    });
+};
+
+export const fetchMeetings = (): (dispatch: any) => Promise<any> => {
+  // TODO: any
+  return (dispatch: any) => {
+    dispatch(requestMeetings());
+
+    return doFetchMeetings().then(meetings => {
+      dispatch(receiveMeetings(meetings));
+    });
+  };
 };
 
 export const addMember = (meetingId: number, member: Person): MemberAdded => {
@@ -69,7 +112,7 @@ const doCreateUser = (person: Person) => {
     },
     body: JSON.stringify({
       name: person.name,
-      location: person.region,
+      location: person.location,
     }),
   })
     .then(res => res.json())
@@ -88,4 +131,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
+export type Action = MeetingsRequested | MeetingsReceived | MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;

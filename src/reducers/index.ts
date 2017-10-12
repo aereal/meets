@@ -4,14 +4,21 @@ import { combineReducers } from 'redux';
 
 import Meeting from '../models/Meeting';
 import Person from '../models/Person';
-import { Action, MemberAdded, CreateUserRequested, CreatedUserReceived } from '../actions';
+import { Action, MemberAdded, CreateUserRequested, CreatedUserReceived, MeetingsReceived } from '../actions';
 import reorderMeetings from '../services/reorderMeetingsService';
 
-type State = Meeting[];
+type MeetingState = {
+  meetings: Meeting[],
+};
 
 type PeopleState = {
   people: Person[],
   isFetching: boolean,
+};
+
+export type GlobalState = {
+  people: PeopleState,
+  meetings: MeetingState,
 };
 
 const App = combineReducers({
@@ -38,22 +45,35 @@ const App = combineReducers({
         return state;
     }
   },
-  meetings(state: State = [], action: Action) {
+  meetings(state: MeetingState = { meetings: [] }, action: Action) {
     switch (action.type) {
+      case 'MEETINGS_REQUESTED':
+        return state;
+      case 'MEETINGS_RECEIVED':
+        const meetingsReceived = action as MeetingsReceived;
+        return {
+          meetings: meetingsReceived.fetchedMeetings,
+        };
       case 'MEETING_ADDED':
-        return [
-          ...state,
+        return {
+          meetings: [
+            ...state.meetings,
           new Meeting(action.id, []),
-        ];
+          ],
+        };
       case 'MEMBER_ADDED':
         const addMemberAction = action as MemberAdded;
-        return state.map(meeting => {
-          return (meeting.id === addMemberAction.id) ?
-            meeting.withNewMember(addMemberAction.member) :
-            meeting;
-        });
+        return {
+          meetings: state.meetings.map(meeting => {
+            return (meeting.id === addMemberAction.id) ?
+              meeting.withNewMember(addMemberAction.member) :
+              meeting;
+          }),
+        };
       case 'REORDERED':
-        return reorderMeetings(state);
+        return {
+          meetings: reorderMeetings(state.meetings),
+        };
       default:
         return state;
     }
