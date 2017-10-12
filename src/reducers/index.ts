@@ -7,7 +7,7 @@ import Person from '../models/Person';
 import { Action, MemberAdded, CreateUserRequested, CreatedUserReceived } from '../actions';
 import reorderMeetings from '../services/reorderMeetingsService';
 
-type State = Meeting[];
+type MeetingState = Meeting[];
 
 type PeopleState = {
   people: Person[],
@@ -38,7 +38,7 @@ const App = combineReducers({
         return state;
     }
   },
-  meetings(state: State = [], action: Action) {
+  meetings(state: MeetingState = [], action: Action) {
     switch (action.type) {
       case 'MEETING_ADDED':
         return [
