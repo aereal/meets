@@ -16,6 +16,57 @@ export type MeetingAdded = {
   members: Person[],
 };
 
+export type CreateMeetingRequested = {
+  type: 'CREATE_MEETING_REQUESTED',
+  owner: Person,
+};
+
+export const requestCreateMeeting = (owner: Person): CreateMeetingRequested => {
+  return ({
+    type: 'CREATE_MEETING_REQUESTED',
+    owner,
+  });
+};
+
+export type CreateMeetingReceived = {
+  type: 'CREATE_MEETING_RECEIVED',
+  createdMeeting: Meeting,
+};
+
+export const receiveCreateMeeting = (createdMeeting: Meeting): CreateMeetingReceived => {
+  return ({
+    type: 'CREATE_MEETING_RECEIVED',
+    createdMeeting,
+  });
+};
+
+const doCreateMeeting = (owner: Person): Promise<Meeting> => {
+  return fetch(`/api/meetings?user_name=${owner.name}`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      description: '', // TODO
+    }),
+  })
+    .then(res => res.json())
+    .then((decoded: any) => {
+      debugger;
+      return new Meeting(decoded.id, decoded.members.map((m: any) => new Person(m.name, m.location)));
+    });
+};
+
+export const createMeeting = (owner: Person): (dispatch: any) => Promise<void> => {
+  // TODO: any
+  return (dispatch: any) => {
+    dispatch(requestCreateMeeting(owner));
+
+    return doCreateMeeting(owner)
+      .then(createdMeeting => dispatch(receiveCreateMeeting(createdMeeting)));
+  };
+};
+
 export type MeetingsRequested = {
   type: 'MEETINGS_REQUESTED',
 };
@@ -131,4 +182,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = MeetingsRequested | MeetingsReceived | MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
+export type Action = CreateMeetingRequested | CreateMeetingReceived | MeetingsRequested | MeetingsReceived | MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
