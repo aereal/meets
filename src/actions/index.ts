@@ -2,20 +2,6 @@ import Person from '../models/Person';
 import Meeting from '../models/Meeting';
 import 'whatwg-fetch';
 
-let meetingId = 0;
-export const addMeeting = (): MeetingAdded => {
-  return ({
-    type: 'MEETING_ADDED',
-    id: meetingId++,
-    members: [],
-  });
-};
-export type MeetingAdded = {
-  type: 'MEETING_ADDED',
-  id: number,
-  members: Person[],
-};
-
 export type CreateMeetingRequested = {
   type: 'CREATE_MEETING_REQUESTED',
   owner: Person,
@@ -52,7 +38,6 @@ const doCreateMeeting = (owner: Person): Promise<Meeting> => {
   })
     .then(res => res.json())
     .then((decoded: any) => {
-      debugger;
       return new Meeting(decoded.id, decoded.members.map((m: any) => new Person(m.name, m.location)));
     });
 };
@@ -182,4 +167,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = CreateMeetingRequested | CreateMeetingReceived | MeetingsRequested | MeetingsReceived | MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
+export type Action = CreateMeetingRequested | CreateMeetingReceived | MeetingsRequested | MeetingsReceived | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
