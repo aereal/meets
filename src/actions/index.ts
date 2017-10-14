@@ -1,3 +1,5 @@
+import { Dispatch } from 'redux';
+
 import Person from '../models/Person';
 import Meeting from '../models/Meeting';
 import 'whatwg-fetch';
@@ -42,9 +44,8 @@ const doCreateMeeting = (owner: Person): Promise<Meeting> => {
     });
 };
 
-export const createMeeting = (owner: Person): (dispatch: any) => Promise<void> => {
-  // TODO: any
-  return (dispatch: any) => {
+export const createMeeting = (owner: Person): (dispatch: Dispatch<{}>) => Promise<CreateMeetingReceived> => {
+  return (dispatch: Dispatch<{}>) => {
     dispatch(requestCreateMeeting(owner));
 
     return doCreateMeeting(owner)
