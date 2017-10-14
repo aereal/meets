@@ -1,19 +1,56 @@
+import { Dispatch } from 'redux';
+
 import Person from '../models/Person';
 import Meeting from '../models/Meeting';
 import 'whatwg-fetch';
 
-let meetingId = 0;
-export const addMeeting = (): MeetingAdded => {
+export type CreateMeetingRequested = {
+  type: 'CREATE_MEETING_REQUESTED',
+  owner: Person,
+};
+
+export const requestCreateMeeting = (owner: Person): CreateMeetingRequested => {
   return ({
-    type: 'MEETING_ADDED',
-    id: meetingId++,
-    members: [],
+    type: 'CREATE_MEETING_REQUESTED',
+    owner,
   });
 };
-export type MeetingAdded = {
-  type: 'MEETING_ADDED',
-  id: number,
-  members: Person[],
+
+export type CreateMeetingReceived = {
+  type: 'CREATE_MEETING_RECEIVED',
+  createdMeeting: Meeting,
+};
+
+export const receiveCreateMeeting = (createdMeeting: Meeting): CreateMeetingReceived => {
+  return ({
+    type: 'CREATE_MEETING_RECEIVED',
+    createdMeeting,
+  });
+};
+
+const doCreateMeeting = (owner: Person): Promise<Meeting> => {
+  return fetch(`/api/meetings?user_name=${owner.name}`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      description: '', // TODO
+    }),
+  })
+    .then(res => res.json())
+    .then((decoded: any) => {
+      return new Meeting(decoded.id, decoded.members.map((m: any) => new Person(m.name, m.location)));
+    });
+};
+
+export const createMeeting = (owner: Person): (dispatch: Dispatch<{}>) => Promise<CreateMeetingReceived> => {
+  return (dispatch: Dispatch<{}>) => {
+    dispatch(requestCreateMeeting(owner));
+
+    return doCreateMeeting(owner)
+      .then(createdMeeting => dispatch(receiveCreateMeeting(createdMeeting)));
+  };
 };
 
 export type MeetingsRequested = {
@@ -131,4 +168,4 @@ export const createUser = (person: Person): (dispatch: any) => Promise<any> => {
   };
 };
 
-export type Action = MeetingsRequested | MeetingsReceived | MeetingAdded | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;
+export type Action = CreateMeetingRequested | CreateMeetingReceived | MeetingsRequested | MeetingsReceived | MemberAdded | Reordered | CreateUserRequested | CreatedUserReceived;

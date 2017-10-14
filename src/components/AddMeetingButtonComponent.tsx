@@ -1,25 +1,25 @@
-// @flow
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
-import { addMeeting, reorder } from '../actions';
+import { reorder } from '../actions';
+import Person from '../models/Person';
 
-interface AddMeetingButtonProps {
-  dispatch: any;
+export interface AddMeetingButtonProps {
+  onAddMeeting: (owner: Person) => void;
 }
 
 const AddMeetingButton = (args: AddMeetingButtonProps) => {
-  const { dispatch } = args;
+  const { onAddMeeting } = args;
+  const owner: Person = new Person('aereal', 'kyoto'); // TODO
   return (
     <div className="fixed-action-btn">
-      <button className="btn-floating btn-large red waves-effect waves-light" onClick={() => dispatch(addMeeting())}>
+      <button className="btn-floating btn-large red waves-effect waves-light" onClick={() => onAddMeeting(owner)}>
         <i className="material-icons">add</i>
       </button>
       <ul>
         <li>
-          <button className="btn-floating green" onClick={() => dispatch(reorder())}>
+          <button className="btn-floating green">
             <i className="material-icons">reorder</i>
           </button>
         </li>
@@ -28,6 +28,4 @@ const AddMeetingButton = (args: AddMeetingButtonProps) => {
   );
 };
 
-const AddMeetingButtonComponent = connect()(AddMeetingButton);
-
-export default AddMeetingButtonComponent;
+export default AddMeetingButton;

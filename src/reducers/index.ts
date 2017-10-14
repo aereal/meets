@@ -4,7 +4,14 @@ import { combineReducers } from 'redux';
 
 import Meeting from '../models/Meeting';
 import Person from '../models/Person';
-import { Action, MemberAdded, CreateUserRequested, CreatedUserReceived, MeetingsReceived } from '../actions';
+import {
+  Action,
+  MemberAdded,
+  CreateUserRequested,
+  CreatedUserReceived,
+  MeetingsReceived,
+  CreateMeetingReceived
+} from '../actions';
 import reorderMeetings from '../services/reorderMeetingsService';
 
 type MeetingState = {
@@ -54,11 +61,12 @@ const App = combineReducers({
         return {
           meetings: meetingsReceived.fetchedMeetings,
         };
-      case 'MEETING_ADDED':
+      case 'CREATE_MEETING_RECEIVED':
+        const meetingReceived = action as CreateMeetingReceived;
         return {
           meetings: [
             ...state.meetings,
-          new Meeting(action.id, []),
+            meetingReceived.createdMeeting,
           ],
         };
       case 'MEMBER_ADDED':
